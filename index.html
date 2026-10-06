@@ -1,1166 +1,563 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPI Computación | Tu respaldo tecnológico</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Google Fonts: Comfortaa (títulos) y Futura (se suple con Jost, geométrica similar) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* ===============================
-           VARIABLES DE MARCA (extraídas del manual)
-           =============================== */
-        :root {
-            --verde-lima: #70FF00;      /* Gafas e IPI */
-            --azul-cian: #00B6FF;       /* Mascota / Monitor */
-            --naranja-accion: #FFB600;  /* Texto Computación (aproximado al HEX del doc) */
-            --oscuro: #0a1628;
-            --gris-claro: #f4f7fb;
-            --gris-texto: #4a5568;
-            --blanco: #ffffff;
-            --sombra: 0 10px 30px -10px rgba(0, 182, 255, 0.25);
-            --radio: 18px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Jost', 'Segoe UI', sans-serif;
-            background-color: var(--blanco);
-            color: var(--oscuro);
-            line-height: 1.6;
-            scroll-behavior: smooth;
-        }
-
-        h1, h2, h3, h4, .logo-texto {
-            font-family: 'Comfortaa', 'Jost', cursive;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ===============================
-           BOTONES
-           =============================== */
-        .btn {
-            display: inline-block;
-            background: var(--naranja-accion);
-            color: var(--oscuro);
-            padding: 14px 32px;
-            border-radius: 50px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.25s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            box-shadow: 0 6px 18px rgba(255, 182, 0, 0.35);
-            font-family: 'Jost', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn:hover {
-            background: #e6a400;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(255, 182, 0, 0.5);
-        }
-
-        .btn-verde {
-            background: var(--verde-lima);
-            box-shadow: 0 6px 18px rgba(112, 255, 0, 0.4);
-        }
-
-        .btn-verde:hover {
-            background: #5fd400;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--blanco);
-            color: var(--blanco);
-            box-shadow: none;
-        }
-
-        .btn-outline:hover {
-            background: var(--blanco);
-            color: var(--azul-cian);
-        }
-
-        /* ===============================
-           HEADER
-           =============================== */
-        header {
-            background: var(--oscuro);
-            padding: 14px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .nav-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .logo-icono {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--azul-cian), var(--verde-lima));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            color: var(--oscuro);
-            box-shadow: 0 4px 15px rgba(0, 182, 255, 0.4);
-        }
-
-        .logo-texto {
-            font-size: 1.8rem;
-            color: var(--blanco);
-            line-height: 1;
-        }
-
-        .logo-texto span {
-            color: var(--verde-lima);
-        }
-
-        .logo-texto small {
-            display: block;
-            font-size: 0.7rem;
-            letter-spacing: 3px;
-            color: var(--naranja-accion);
-            font-family: 'Jost', sans-serif;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--blanco);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s;
-            font-size: 1rem;
-        }
-
-        .nav-links a:hover {
-            color: var(--verde-lima);
-        }
-
-        /* ===============================
-           HERO
-           =============================== */
-        .hero {
-            background: linear-gradient(135deg, #0a1628 0%, #0d2340 50%, #003d5c 100%);
-            color: var(--blanco);
-            padding: 80px 0 110px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 0 0 60px 60px;
-        }
-
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 182, 255, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            bottom: -30%;
-            left: -5%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(112, 255, 0, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 50px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-text {
-            flex: 1 1 450px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: rgba(112, 255, 0, 0.15);
-            color: var(--verde-lima);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            border: 1px solid rgba(112, 255, 0, 0.3);
-        }
-
-        .hero-text h1 {
-            font-size: 3rem;
-            line-height: 1.15;
-            margin-bottom: 22px;
-        }
-
-        .hero-text h1 .destacado-verde {
-            color: var(--verde-lima);
-        }
-
-        .hero-text h1 .destacado-azul {
-            color: var(--azul-cian);
-        }
-
-        .hero-text p {
-            font-size: 1.15rem;
-            opacity: 0.85;
-            margin-bottom: 32px;
-            max-width: 560px;
-            color: #cbd5e1;
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .hero-mascota {
-            flex: 1 1 320px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .mascota-card {
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 32px;
-            padding: 30px 40px;
-            text-align: center;
-            position: relative;
-            animation: flotar 4s ease-in-out infinite;
-        }
-
-        @keyframes flotar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        .mascota-card .monitor-icono {
-            font-size: 6rem;
-            color: var(--azul-cian);
-            filter: drop-shadow(0 10px 20px rgba(0, 182, 255, 0.4));
-            margin-bottom: 10px;
-        }
-
-        .mascota-card .nombre-mascota {
-            font-family: 'Comfortaa', cursive;
-            font-size: 1.4rem;
-            color: var(--verde-lima);
-            font-weight: 700;
-        }
-
-        .mascota-card .rol-mascota {
-            font-size: 0.85rem;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* ===============================
-           SECCIÓN NOSOTROS
-           =============================== */
-        .nosotros {
-            padding: 80px 0 60px;
-        }
-
-        .section-tag {
-            display: inline-block;
-            background: rgba(0, 182, 255, 0.1);
-            color: var(--azul-cian);
-            padding: 6px 18px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-        }
-
-        .section-titulo {
-            font-size: 2.4rem;
-            color: var(--oscuro);
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .section-subtitulo {
-            color: var(--gris-texto);
-            max-width: 720px;
-            font-size: 1.08rem;
-            margin-bottom: 48px;
-        }
-
-        .nosotros-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-            margin-bottom: 50px;
-        }
-
-        .info-card {
-            background: var(--gris-claro);
-            border-radius: var(--radio);
-            padding: 32px 28px;
-            border-left: 5px solid var(--azul-cian);
-            transition: transform 0.25s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .info-card .icono {
-            font-size: 2rem;
-            color: var(--azul-cian);
-            margin-bottom: 16px;
-        }
-
-        .info-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 12px;
-            color: var(--oscuro);
-        }
-
-        .info-card p {
-            color: var(--gris-texto);
-            font-size: 1rem;
-        }
-
-        .info-card.mision { border-left-color: var(--verde-lima); }
-        .info-card.mision .icono { color: var(--verde-lima); }
-        .info-card.vision { border-left-color: var(--naranja-accion); }
-        .info-card.vision .icono { color: var(--naranja-accion); }
-
-        /* Valores */
-        .valores {
-            background: linear-gradient(135deg, #0a1628, #0d2340);
-            border-radius: 32px;
-            padding: 48px 40px;
-            color: var(--blanco);
-            margin-top: 40px;
-        }
-
-        .valores h3 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .valores-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 28px;
-        }
-
-        .valor-item {
-            text-align: center;
-        }
-
-        .valor-item .valor-icono {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 16px;
-            background: rgba(112, 255, 0, 0.12);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            color: var(--verde-lima);
-            border: 1px solid rgba(112, 255, 0, 0.2);
-        }
-
-        .valor-item h4 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-            color: var(--blanco);
-        }
-
-        .valor-item p {
-            font-size: 0.92rem;
-            color: #94a3b8;
-        }
-
-        /* ===============================
-           SERVICIOS
-           =============================== */
-        .servicios {
-            padding: 80px 0;
-            background: var(--gris-claro);
-            border-radius: 60px 60px 0 0;
-        }
-
-        .servicios-header {
-            text-align: center;
-            margin-bottom: 56px;
-        }
-
-        .servicios-header .section-subtitulo {
-            margin: 0 auto;
-        }
-
-        .servicios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 28px;
-        }
-
-        .servicio-card {
-            background: var(--blanco);
-            border-radius: var(--radio);
-            padding: 34px 28px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .servicio-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--verde-lima), var(--azul-cian));
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease;
-        }
-
-        .servicio-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .servicio-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 182, 255, 0.15);
-            border-color: rgba(0, 182, 255, 0.2);
-        }
-
-        .servicio-icono {
-            width: 70px;
-            height: 70px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 22px;
-            background: linear-gradient(135deg, rgba(0, 182, 255, 0.12), rgba(112, 255, 0, 0.12));
-            color: var(--azul-cian);
-        }
-
-        .servicio-card:nth-child(2) .servicio-icono { color: var(--verde-lima); }
-        .servicio-card:nth-child(3) .servicio-icono { color: var(--naranja-accion); }
-        .servicio-card:nth-child(4) .servicio-icono { color: var(--verde-lima); }
-        .servicio-card:nth-child(5) .servicio-icono { color: var(--azul-cian); }
-        .servicio-card:nth-child(6) .servicio-icono { color: var(--naranja-accion); }
-
-        .servicio-card h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            color: var(--oscuro);
-        }
-
-        .servicio-card p {
-            color: var(--gris-texto);
-            font-size: 0.98rem;
-            margin-bottom: 20px;
-        }
-
-        .servicio-precio {
-            display: inline-block;
-            background: var(--oscuro);
-            color: var(--verde-lima);
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        /* ===============================
-           BENEFICIOS
-           =============================== */
-        .beneficios {
-            padding: 80px 0;
-        }
-
-        .beneficios-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 28px;
-            margin-top: 48px;
-        }
-
-        .beneficio-item {
-            text-align: center;
-            padding: 32px 20px;
-            border-radius: var(--radio);
-            background: var(--blanco);
-            border: 2px solid #e9eef3;
-            transition: all 0.25s ease;
-        }
-
-        .beneficio-item:hover {
-            border-color: var(--verde-lima);
-            box-shadow: var(--sombra);
-        }
-
-        .beneficio-item .beneficio-icono {
-            font-size: 2.6rem;
-            color: var(--azul-cian);
-            margin-bottom: 18px;
-        }
-
-        .beneficio-item:nth-child(2) .beneficio-icono { color: var(--verde-lima); }
-        .beneficio-item:nth-child(3) .beneficio-icono { color: var(--naranja-accion); }
-        .beneficio-item:nth-child(4) .beneficio-icono { color: var(--verde-lima); }
-
-        .beneficio-item h4 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-        }
-
-        .beneficio-item p {
-            color: var(--gris-texto);
-            font-size: 0.95rem;
-        }
-
-        /* ===============================
-           CONTACTO
-           =============================== */
-        .contacto {
-            padding: 80px 0;
-        }
-
-        .contacto-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 48px;
-            background: linear-gradient(135deg, #0a1628, #0d2340);
-            border-radius: 40px;
-            padding: 52px 48px;
-            color: var(--blanco);
-            box-shadow: 0 30px 60px -20px rgba(0, 182, 255, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contacto-wrapper::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(112, 255, 0, 0.08), transparent 70%);
-            border-radius: 50%;
-        }
-
-        .contacto-info {
-            flex: 1 1 300px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .contacto-info h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .contacto-info h2 span {
-            color: var(--verde-lima);
-        }
-
-        .contacto-info p {
-            opacity: 0.85;
-            margin-bottom: 32px;
-            color: #cbd5e1;
-        }
-
-        .contacto-detalles {
-            list-style: none;
-        }
-
-        .contacto-detalles li {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 22px;
-            font-size: 1.02rem;
-        }
-
-        .contacto-detalles i {
-            width: 42px;
-            height: 42px;
-            background: rgba(0, 182, 255, 0.15);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--azul-cian);
-            font-size: 1.1rem;
-            flex-shrink: 0;
-        }
-
-        .contacto-form {
-            flex: 1 1 380px;
-            background: var(--blanco);
-            border-radius: 24px;
-            padding: 36px 32px;
-            color: var(--oscuro);
-            position: relative;
-            z-index: 2;
-        }
-
-        .contacto-form h3 {
-            font-size: 1.6rem;
-            margin-bottom: 24px;
-            color: var(--oscuro);
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.92rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            font-size: 0.98rem;
-            transition: border 0.2s;
-            background: #f8fafc;
-            font-family: 'Jost', sans-serif;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--azul-cian);
-            background: var(--blanco);
-        }
-
-        .contacto-form .btn {
-            width: 100%;
-            padding: 16px;
-            font-size: 1rem;
-            margin-top: 8px;
-        }
-
-        /* ===============================
-           AROMA / EXPERIENCIA SENSORIAL
-           =============================== */
-        .sensorial {
-            padding: 60px 0 80px;
-            background: var(--gris-claro);
-            border-radius: 60px;
-            margin: 20px 0;
-        }
-
-        .sensorial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 28px;
-            margin-top: 40px;
-        }
-
-        .sensorial-item {
-            background: var(--blanco);
-            border-radius: var(--radio);
-            padding: 30px 26px;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
-        }
-
-        .sensorial-item .s-icono {
-            font-size: 2.4rem;
-            color: var(--azul-cian);
-            margin-bottom: 16px;
-        }
-
-        .sensorial-item h4 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-        }
-
-        .sensorial-item p {
-            color: var(--gris-texto);
-            font-size: 0.95rem;
-        }
-
-        /* ===============================
-           FOOTER
-           =============================== */
-        footer {
-            background: var(--oscuro);
-            color: #cbd5e1;
-            padding: 50px 0 30px;
-            border-radius: 40px 40px 0 0;
-        }
-
-        .footer-contenido {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            text-align: center;
-        }
-
-        .footer-slogan {
-            font-family: 'Comfortaa', cursive;
-            font-size: 1.3rem;
-            color: var(--verde-lima);
-            font-weight: 700;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 22px;
-            font-size: 1.5rem;
-        }
-
-        .footer-social a {
-            color: #94a3b8;
-            transition: all 0.2s;
-            width: 46px;
-            height: 46px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .footer-social a:hover {
-            color: var(--oscuro);
-            background: var(--verde-lima);
-            transform: translateY(-4px);
-        }
-
-        footer p {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        .footer-divider {
-            width: 80px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--verde-lima), var(--azul-cian));
-            border-radius: 10px;
-        }
-
-        /* ===============================
-           RESPONSIVE
-           =============================== */
-        @media (max-width: 768px) {
-            .hero-text h1 { font-size: 2.2rem; }
-            .section-titulo { font-size: 1.9rem; }
-            .contacto-wrapper { padding: 36px 24px; }
-            .nav-links { gap: 18px; }
-            .valores { padding: 36px 24px; }
-        }
-
-        @media (max-width: 520px) {
-            .nav-bar { flex-direction: column; align-items: flex-start; }
-            .nav-links { flex-wrap: wrap; gap: 14px; font-size: 0.9rem; }
-            .hero-text h1 { font-size: 1.9rem; }
-            .hero-cta { flex-direction: column; align-items: stretch; }
-            .btn { text-align: center; }
-            .mascota-card { padding: 24px; }
-            .mascota-card .monitor-icono { font-size: 4rem; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPI Computación | Soporte Técnico y Mantenimiento</title>
+  <meta name="description" content="Servicio profesional de mantenimiento y reparación de computadoras, impresoras y proyectores en Quetzaltenango. Precios accesibles y garantía.">
+  
+  <!-- Tailwind CSS + Configuración de colores personalizados -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ipi-cyan': '#00B6FF',
+            'ipi-lime': '#70FF00',
+            'ipi-orange': '#FFAA00',
+            'ipi-black': '#0a0a0a',
+            'ipi-dark': '#111111',
+            'ipi-card': '#1a1a1a',
+          },
+          fontFamily: {
+            'comfortaa': ['Comfortaa', 'cursive'],
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Fuentes e Iconos -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #f0f0f0;
+    }
+    .bg-grid {
+      background-image: linear-gradient(rgba(0, 182, 255, 0.15) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(0, 182, 255, 0.15) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .glow-lime {
+      text-shadow: 0 0 15px rgba(112, 255, 0, 0.8);
+    }
+    .glow-cyan {
+      text-shadow: 0 0 15px rgba(0, 182, 255, 0.8);
+    }
+    .glow-orange {
+      text-shadow: 0 0 12px rgba(255, 170, 0, 0.7);
+    }
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 30px -5px rgba(112, 255, 0, 0.3), 0 10px 15px -5px rgba(0, 182, 255, 0.2);
+    }
+    /* Animación fade-in al hacer scroll */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Animación flotante para IPI Boot */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(#00B6FF, #70FF00);
+      border-radius: 5px;
+    }
+    /* Reproductor de audio */
+    audio {
+      filter: drop-shadow(0 0 5px #70FF00);
+    }
+    /* Inputs en fondo oscuro */
+    input, textarea, select {
+      color: #fff;
+    }
+    input::placeholder, textarea::placeholder {
+      color: #888;
+    }
+    select option {
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+  </style>
 </head>
-<body>
+<body class="font-sans bg-ipi-black text-gray-100 transition-colors duration-300">
 
-    <!-- ================= HEADER ================= -->
-    <header>
-        <div class="container nav-bar">
-            <a href="#" class="logo">
-                <div class="logo-icono"><i class="fas fa-desktop"></i></div>
-                <div class="logo-texto">
-                    IPI<span>.</span>
-                    <small>Computación</small>
-                </div>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#nosotros">Nosotros</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#beneficios">Beneficios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+  <!-- ========== HEADER ========== -->
+  <header class="sticky top-0 z-50 bg-ipi-black/95 backdrop-blur-md border-b border-ipi-cyan/20 shadow-lg shadow-ipi-cyan/10">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="#" class="flex items-center gap-2">
+        <img src="https://i.postimg.cc/3JGkwpjH/Ipi-Logo-removebg-preview.png" alt="Logo IPI" class="h-20 w-auto ">
+        <span class="font-comfortaa font-bold text-xl">
+        </span>
+      </a>
+      
+      <!-- Navegación desktop -->
+      <nav class="hidden md:flex items-center space-x-6 font-semibold">
+        <a href="#inicio" class="hover:text-ipi-lime transition">Inicio</a>
+        <a href="#servicios" class="hover:text-ipi-lime transition">Servicios</a>
+        <a href="#portafolio" class="hover:text-ipi-lime transition">Portafolio</a>
+        <a href="#nosotros" class="hover:text-ipi-lime transition">Nosotros</a>
+        <a href="#mascota" class="hover:text-ipi-lime transition">IPI Boot</a>
+        <a href="#contacto" class="hover:text-ipi-lime transition">Contacto</a>
+      </nav>
+      
+      <!-- Botones derecha -->
+      <div class="flex items-center gap-3">
+        <!-- WhatsApp Header -->
+        <a href="https://wa.me/50242260602?text=Hola%20IPI%20Computación,%20necesito%20soporte%20técnico" target="_blank" 
+           class="hidden sm:inline-flex items-center gap-2 bg-ipi-lime text-gray-900 font-bold px-4 py-2 rounded-full hover:bg-ipi-cyan hover:text-white transition shadow-lg shadow-ipi-lime/30">
+          <i class="fab fa-whatsapp"></i> Soporte
+        </a>
+        <!-- Menú móvil -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-2xl text-ipi-cyan">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menú móvil desplegable -->
+    <div id="mobile-menu" class="hidden md:hidden bg-ipi-dark border-t border-ipi-cyan/20">
+      <div class="flex flex-col p-4 space-y-3 font-semibold">
+        <a href="#inicio" class="hover:text-ipi-lime">Inicio</a>
+        <a href="#servicios" class="hover:text-ipi-lime">Servicios</a>
+        <a href="#portafolio" class="hover:text-ipi-lime">Portafolio</a>
+        <a href="#nosotros" class="hover:text-ipi-lime">Nosotros</a>
+        <a href="#mascota" class="hover:text-ipi-lime">IPI Boot</a>
+        <a href="#contacto" class="hover:text-ipi-lime">Contacto</a>
+        <a href="https://wa.me/50242260602" target="_blank" class="bg-ipi-lime text-gray-900 text-center py-2 rounded-full font-bold">WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== HERO ========== -->
+  <section id="inicio" class="relative bg-ipi-black py-20 overflow-hidden">
+    <!-- Fondo con grid y gradientes neón -->
+    <div class="absolute inset-0 bg-grid opacity-40"></div>
+    <div class="absolute top-0 left-0 w-96 h-96 bg-ipi-cyan/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-ipi-lime/20 rounded-full blur-3xl"></div>
+    
+    <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-10">
+      <div class="md:w-1/2 space-y-6 text-center md:text-left">
+        <h1 class="text-4xl md:text-6xl font-comfortaa font-bold leading-tight">
+          <span class="text-ipi-cyan glow-cyan">Tu respaldo</span><br>
+          <span class="text-ipi-lime glow-lime">tecnológico.</span>
+        </h1>
+        <p class="text-lg md:text-xl text-gray-300 max-w-lg">
+          Mantenimiento, reparación y actualización de computadoras, impresoras y proyectores. 
+          <strong class="text-ipi-orange glow-orange">Soluciones tecnológicas a tu alcance.</strong>
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <a href="#servicios" class="bg-ipi-cyan text-white font-bold px-8 py-3 rounded-full hover:bg-ipi-lime hover:text-gray-900 transition shadow-lg shadow-ipi-cyan/40">
+            Ver Precios
+          </a>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20un%20servicio" target="_blank" 
+             class="border-2 border-ipi-lime text-ipi-lime font-bold px-8 py-3 rounded-full hover:bg-ipi-lime hover:text-gray-900 transition shadow-lg shadow-ipi-lime/30">
+            <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+          </a>
         </div>
-    </header>
+      </div>
+      <div class="md:w-1/2 flex justify-center">
+        <!-- Reemplaza con tu mascota IPI Boot 3D -->
+        <img src="https://i.postimg.cc/Vvp0VWjt/Ipi-Mascota-removebg-preview.png" alt="IPI Boot - Mascota" 
+             class="w-72 md:w-96 drop-shadow-[0_0_25px_rgba(0,182,255,0.6)] animate-float">
+      </div>
+    </div>
+  </section>
 
-    <!-- ================= HERO ================= -->
-    <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text">
-                <span class="hero-badge">Soluciones tecnológicas a tu alcance</span>
-                <h1>
-                    <span class="destacado-verde">Tu respaldo</span> 
-                    <span class="destacado-azul">tecnológico.</span>
-                </h1>
-                <p>Especialistas en mantenimiento, reparación y actualización de equipos de cómputo. Rápidos, confiables y accesibles para estudiantes, profesionales y empresas.</p>
-                <div class="hero-cta">
-                    <a href="#contacto" class="btn">Solicitar servicio</a>
-                    <a href="#servicios" class="btn btn-outline">Ver servicios</a>
-                </div>
-            </div>
-            <div class="hero-mascota">
-                <div class="mascota-card">
-                    <div class="monitor-icono"><i class="fas fa-laptop-code"></i></div>
-                    <div class="nombre-mascota">IPI Boot</div>
-                    <div class="rol-mascota">Soporte avanzado</div>
-                </div>
-            </div>
+  <!-- ========== SERVICIOS Y PRECIOS ========== -->
+  <section id="servicios" class="py-20 bg-ipi-dark relative">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-comfortaa font-bold text-center mb-4">
+        <span class="text-ipi-cyan glow-cyan">Nuestros</span> <span class="text-ipi-lime glow-lime">Servicios</span>
+      </h2>
+      <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+        Precios en quetzales, transparentes y accesibles. Todos nuestros trabajos incluyen garantía IPI.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Servicio 1 -->
+        <div class="fade-in bg-ipi-card rounded-2xl p-6 shadow-lg card-hover border border-ipi-lime/30 border-t-4 border-t-ipi-lime">
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-desktop text-3xl text-ipi-cyan"></i>
+            <span class="bg-ipi-lime/20 text-ipi-lime font-bold px-3 py-1 rounded-full text-sm border border-ipi-lime/40">Q225</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-white">Mantenimiento Preventivo Completo</h3>
+          <p class="text-gray-400 mb-4">Limpieza física y de software para PC de escritorio. Optimización de sistema.</p>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20Mantenimiento%20Preventivo%20Completo%20por%20Q225" 
+             target="_blank" class="inline-block w-full text-center bg-ipi-cyan text-white font-bold py-2 rounded-lg hover:bg-ipi-lime hover:text-gray-900 transition">
+            Agendar
+          </a>
         </div>
-    </section>
-
-    <!-- ================= NOSOTROS ================= -->
-    <section id="nosotros" class="nosotros">
-        <div class="container">
-            <span class="section-tag">¿Quiénes somos?</span>
-            <h2 class="section-titulo">Apasionados por la <span style="color: var(--azul-cian);">tecnología</span>, comprometidos con la <span style="color: var(--verde-lima);">excelencia</span></h2>
-            <p class="section-subtitulo">Somos un equipo especializado en brindar soluciones informáticas integrales y de vanguardia. Ofrecemos soporte técnico preventivo y correctivo para potenciar el rendimiento de nuestros clientes en su entorno profesional y educativo.</p>
-
-            <div class="nosotros-grid">
-                <div class="info-card mision">
-                    <div class="icono"><i class="fas fa-bullseye"></i></div>
-                    <h3>Misión</h3>
-                    <p>Proveer soluciones tecnológicas y de computación a la vanguardia, garantizando excelencia en el servicio para potenciar el desarrollo y rendimiento de nuestros clientes en su entorno profesional.</p>
-                </div>
-                <div class="info-card vision">
-                    <div class="icono"><i class="fas fa-eye"></i></div>
-                    <h3>Visión</h3>
-                    <p>Ser el referente líder en el mercado de informática y tecnología, reconocidos por anticipar las necesidades del cliente y brindar soluciones integrales que impulsen la transformación digital.</p>
-                </div>
-                <div class="info-card">
-                    <div class="icono"><i class="fas fa-users"></i></div>
-                    <h3>Cliente ideal</h3>
-                    <p>Estudiantes, profesionales, emprendedores y empresas que utilizan computadoras para estudiar, trabajar o administrar su negocio y necesitan servicios confiables, rápidos y accesibles.</p>
-                </div>
-            </div>
-
-            <!-- Valores -->
-            <div class="valores">
-                <h3>Nuestros valores</h3>
-                <div class="valores-grid">
-                    <div class="valor-item">
-                        <div class="valor-icono"><i class="fas fa-rocket"></i></div>
-                        <h4>Vanguardia e Innovación</h4>
-                        <p>Tecnología de última generación para anticiparnos a las necesidades de un entorno en constante cambio.</p>
-                    </div>
-                    <div class="valor-item">
-                        <div class="valor-icono"><i class="fas fa-bolt"></i></div>
-                        <h4>Rapidez y Eficiencia</h4>
-                        <p>Soluciones inmediatas para resolver cualquier inconveniente técnico en tiempo récord.</p>
-                    </div>
-                    <div class="valor-item">
-                        <div class="valor-icono"><i class="fas fa-award"></i></div>
-                        <h4>Calidad Garantizada</h4>
-                        <p>Excelencia en el servicio al cliente y garantía real en cada trabajo realizado.</p>
-                    </div>
-                    <div class="valor-item">
-                        <div class="valor-icono"><i class="fas fa-hand-holding-heart"></i></div>
-                        <h4>Accesibilidad</h4>
-                        <p>Soluciones integrales de alto nivel técnico a precios competitivos y accesibles para todos.</p>
-                    </div>
-                </div>
-            </div>
+        
+        <!-- Servicio 2 -->
+        <div class="fade-in bg-ipi-card rounded-2xl p-6 shadow-lg card-hover border border-ipi-cyan/30 border-t-4 border-t-ipi-cyan">
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-compact-disc text-3xl text-ipi-cyan"></i>
+            <span class="bg-ipi-cyan/20 text-ipi-cyan font-bold px-3 py-1 rounded-full text-sm border border-ipi-cyan/40">Q175</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-white">Instalación de Software y SO</h3>
+          <p class="text-gray-400 mb-4">Instalación de Windows/Linux, drivers y aplicaciones básicas.</p>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20Instalación%20de%20Software%20por%20Q175" 
+             target="_blank" class="inline-block w-full text-center bg-ipi-cyan text-white font-bold py-2 rounded-lg hover:bg-ipi-lime hover:text-gray-900 transition">
+            Agendar
+          </a>
         </div>
-    </section>
-
-    <!-- ================= SERVICIOS ================= -->
-    <section id="servicios" class="servicios">
-        <div class="container">
-            <div class="servicios-header">
-                <span class="section-tag">¿Qué ofrecemos?</span>
-                <h2 class="section-titulo">Nuestros servicios</h2>
-                <p class="section-subtitulo">Tecnología de última generación, servicio al cliente de calidad, rapidez para solucionar inconvenientes, precios accesibles y garantía en el trabajo realizado.</p>
-            </div>
-
-            <div class="servicios-grid">
-                <div class="servicio-card">
-                    <div class="servicio-icono"><i class="fas fa-tools"></i></div>
-                    <h3>Mantenimiento preventivo</h3>
-                    <p>Limpieza interna, cambio de pasta térmica, revisión de ventiladores y actualización de software para prolongar la vida de tu equipo.</p>
-                    <span class="servicio-precio">Desde $450 MXN</span>
-                </div>
-                <div class="servicio-card">
-                    <div class="servicio-icono"><i class="fas fa-microchip"></i></div>
-                    <h3>Reparación de hardware</h3>
-                    <p>Diagnóstico y reparación de fallas en tarjeta madre, discos duros, memorias RAM, fuentes de poder y más componentes.</p>
-                    <span class="servicio-precio">Desde $600 MXN</span>
-                </div>
-                <div class="servicio-card">
-                    <div class="servicio-icono"><i class="fas fa-shield-virus"></i></div>
-                    <h3>Eliminación de virus</h3>
-                    <p>Limpieza de malware, spyware y ransomware. Instalación de antivirus y configuración de seguridad avanzada.</p>
-                    <span class="servicio-precio">Desde $350 MXN</span>
-                </div>
-                <div class="servicio-card">
-                    <div class="servicio-icono"><i class="fas fa-database"></i></div>
-                    <h3>Recuperación de datos</h3>
-                    <p>Recuperamos archivos perdidos o dañados en discos duros, SSD, memorias USB y tarjetas SD con tecnología especializada.</p>
-                    <span class="servicio-precio">Desde $800 MXN</span>
-                </div>
-                <div class="servicio-card">
-                    <div class="servicio-icono"><i class="fab fa-windows"></i></div>
-                    <h3>Instalación de SO</h3>
-                    <p>Instalación y configuración de Windows, Linux o macOS. Actualización de controladores y programas esenciales.</p>
-                    <span class="servicio-precio">Desde $400 MXN</span>
-                </div>
-                <div class="servicio-card">
-                    <div class="servicio-icono"><i class="fas fa-tachometer-alt"></i></div>
-                    <h3>Optimización de rendimiento</h3>
-                    <p>Mejoramos la velocidad de tu equipo: limpieza de archivos, actualización de hardware y ajustes del sistema.</p>
-                    <span class="servicio-precio">Desde $500 MXN</span>
-                </div>
-            </div>
+        
+        <!-- Servicio 3 -->
+        <div class="fade-in bg-ipi-card rounded-2xl p-6 shadow-lg card-hover border border-ipi-orange/30 border-t-4 border-t-ipi-orange">
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-shield-alt text-3xl text-ipi-orange"></i>
+            <span class="bg-ipi-orange/20 text-ipi-orange font-bold px-3 py-1 rounded-full text-sm border border-ipi-orange/40">Q180</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-white">Instalación de Antivirus (1 año)</h3>
+          <p class="text-gray-400 mb-4">Licencia original de un año y configuración completa.</p>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20Instalación%20de%20Antivirus%20por%20Q180" 
+             target="_blank" class="inline-block w-full text-center bg-ipi-cyan text-white font-bold py-2 rounded-lg hover:bg-ipi-lime hover:text-gray-900 transition">
+            Agendar
+          </a>
         </div>
-    </section>
-
-    <!-- ================= BENEFICIOS ================= -->
-    <section id="beneficios" class="beneficios">
-        <div class="container">
-            <div style="text-align: center;">
-                <span class="section-tag">¿Por qué elegirnos?</span>
-                <h2 class="section-titulo">Más que reparación, respaldo tecnológico</h2>
-                <p class="section-subtitulo" style="margin: 0 auto;">Nuestro compromiso es que tus herramientas tecnológicas operen siempre al máximo nivel.</p>
-            </div>
-
-            <div class="beneficios-grid">
-                <div class="beneficio-item">
-                    <div class="beneficio-icono"><i class="fas fa-clock"></i></div>
-                    <h4>Servicio express</h4>
-                    <p>Reparaciones en el día para la mayoría de los casos. Diagnóstico en menos de 2 horas.</p>
-                </div>
-                <div class="beneficio-item">
-                    <div class="beneficio-icono"><i class="fas fa-certificate"></i></div>
-                    <h4>Técnicos certificados</h4>
-                    <p>Personal capacitado y con experiencia en marcas como HP, Dell, Lenovo, Apple y más.</p>
-                </div>
-                <div class="beneficio-item">
-                    <div class="beneficio-icono"><i class="fas fa-hand-holding-usd"></i></div>
-                    <h4>Precios accesibles</h4>
-                    <p>Presupuesto sin compromiso y tarifas transparentes. Sin costos ocultos.</p>
-                </div>
-                <div class="beneficio-item">
-                    <div class="beneficio-icono"><i class="fas fa-check-circle"></i></div>
-                    <h4>Garantía real</h4>
-                    <p>Todos nuestros servicios incluyen garantía de 30 días en mano de obra y refacciones.</p>
-                </div>
-            </div>
+        
+        <!-- Servicio 4 -->
+        <div class="fade-in bg-ipi-card rounded-2xl p-6 shadow-lg card-hover border border-ipi-lime/30 border-t-4 border-t-ipi-lime">
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-gamepad text-3xl text-ipi-lime"></i>
+            <span class="bg-ipi-lime/20 text-ipi-lime font-bold px-3 py-1 rounded-full text-sm border border-ipi-lime/40">Q350</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-white">Mantenimiento Laptop Gaming</h3>
+          <p class="text-gray-400 mb-4">Limpieza profunda, cambio de pasta térmica y optimización.</p>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20Mantenimiento%20Laptop%20Gaming%20por%20Q350" 
+             target="_blank" class="inline-block w-full text-center bg-ipi-cyan text-white font-bold py-2 rounded-lg hover:bg-ipi-lime hover:text-gray-900 transition">
+            Agendar
+          </a>
         </div>
-    </section>
-
-    <!-- ================= EXPERIENCIA SENSORIAL ================= -->
-    <section class="sensorial">
-        <div class="container">
-            <div style="text-align: center;">
-                <span class="section-tag">Experiencia de marca</span>
-                <h2 class="section-titulo">Ambiente diseñado para tu concentración</h2>
-                <p class="section-subtitulo" style="margin: 0 auto;">Cada detalle en IPI Computación está pensado para transmitir frescura, claridad y eficiencia.</p>
-            </div>
-
-            <div class="sensorial-grid">
-                <div class="sensorial-item">
-                    <div class="s-icono"><i class="fas fa-leaf"></i></div>
-                    <h4>Aroma característico</h4>
-                    <p>Menta, eucalipto o romero. Aromas estimulantes que reducen el estrés y se asocian con entornos eficientes, profesionales y limpios.</p>
-                </div>
-                <div class="sensorial-item">
-                    <div class="s-icono"><i class="fas fa-volume-up"></i></div>
-                    <h4>Audio logo</h4>
-                    <p>Un sonido de 6 segundos que inicia con un zumbido electrónico ascendente y se fusiona con un tono de notificación limpio. Transmite dinamismo y resolución.</p>
-                </div>
-                <div class="sensorial-item">
-                    <div class="s-icono"><i class="fas fa-robot"></i></div>
-                    <h4>Mascota IPI Boot</h4>
-                    <p>Un monitor inteligente "Geek" de soporte avanzado. Aparece en los adhesivos de garantía pegados en las computadoras reparadas.</p>
-                </div>
-            </div>
+        
+        <!-- Servicio 5 -->
+        <div class="fade-in bg-ipi-card rounded-2xl p-6 shadow-lg card-hover border border-ipi-cyan/30 border-t-4 border-t-ipi-cyan">
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-video text-3xl text-ipi-cyan"></i>
+            <span class="bg-ipi-cyan/20 text-ipi-cyan font-bold px-3 py-1 rounded-full text-sm border border-ipi-cyan/40">Q350</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-white">Mantenimiento de Proyectores</h3>
+          <p class="text-gray-400 mb-4">Limpieza de lentes, filtros y revisión de lámpara.</p>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20Mantenimiento%20de%20Proyectores%20por%20Q350" 
+             target="_blank" class="inline-block w-full text-center bg-ipi-cyan text-white font-bold py-2 rounded-lg hover:bg-ipi-lime hover:text-gray-900 transition">
+            Agendar
+          </a>
         </div>
-    </section>
-
-    <!-- ================= CONTACTO ================= -->
-    <section id="contacto" class="contacto">
-        <div class="container">
-            <div class="contacto-wrapper">
-                <div class="contacto-info">
-                    <h2>¿Necesitas ayuda con tu <span>equipo</span>?</h2>
-                    <p>Escríbenos o llámanos. Estamos listos para ayudarte a recuperar el rendimiento de tu computadora con soluciones inmediatas.</p>
-                    <ul class="contacto-detalles">
-                        <li><i class="fas fa-phone-alt"></i> +52 55 1234 5678</li>
-                        <li><i class="fas fa-envelope"></i> soporte@ipicomputacion.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Av. Tecnológica 123, Ciudad de México</li>
-                        <li><i class="fas fa-clock"></i> Lun - Sáb: 9:00 - 19:00</li>
-                    </ul>
-                </div>
-                <div class="contacto-form">
-                    <h3>Solicita tu servicio</h3>
-                    <form id="formularioServicio">
-                        <div class="form-group">
-                            <label for="nombre">Nombre completo</label>
-                            <input type="text" id="nombre" placeholder="Ej. Juan Pérez" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" id="email" placeholder="ejemplo@correo.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Teléfono</label>
-                            <input type="tel" id="telefono" placeholder="55 1234 5678">
-                        </div>
-                        <div class="form-group">
-                            <label for="servicio">Servicio requerido</label>
-                            <select id="servicio" required>
-                                <option value="">Selecciona una opción</option>
-                                <option value="Mantenimiento preventivo">Mantenimiento preventivo</option>
-                                <option value="Reparación de hardware">Reparación de hardware</option>
-                                <option value="Eliminación de virus">Eliminación de virus</option>
-                                <option value="Recuperación de datos">Recuperación de datos</option>
-                                <option value="Instalación de SO">Instalación de SO</option>
-                                <option value="Optimización de rendimiento">Optimización de rendimiento</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="mensaje">Mensaje (opcional)</label>
-                            <textarea id="mensaje" rows="3" placeholder="Describe el problema de tu equipo..."></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-verde">Enviar solicitud</button>
-                    </form>
-                </div>
-            </div>
+        
+        <!-- Servicio 6 -->
+        <div class="fade-in bg-ipi-card rounded-2xl p-6 shadow-lg card-hover border border-ipi-orange/30 border-t-4 border-t-ipi-orange">
+          <div class="flex justify-between items-start mb-4">
+            <i class="fas fa-print text-3xl text-ipi-orange"></i>
+            <span class="bg-ipi-orange/20 text-ipi-orange font-bold px-3 py-1 rounded-full text-sm border border-ipi-orange/40">Q225</span>
+          </div>
+          <h3 class="text-xl font-bold mb-2 text-white">Mantenimiento de Impresoras</h3>
+          <p class="text-gray-400 mb-4">Limpieza de cabezales, rodillos y sistema de tinta.</p>
+          <a href="https://wa.me/50242260602?text=Hola,%20quiero%20agendar%20Mantenimiento%20de%20Impresoras%20por%20Q225" 
+             target="_blank" class="inline-block w-full text-center bg-ipi-cyan text-white font-bold py-2 rounded-lg hover:bg-ipi-lime hover:text-gray-900 transition">
+            Agendar
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- ================= FOOTER ================= -->
-    <footer>
-        <div class="container footer-contenido">
-            <a href="#" class="logo" style="justify-content: center;">
-                <div class="logo-icono"><i class="fas fa-desktop"></i></div>
-                <div class="logo-texto">
-                    IPI<span>.</span>
-                    <small>Computación</small>
-                </div>
-            </a>
-            <div class="footer-slogan">"Soluciones tecnológicas a tu alcance"</div>
-            <div class="footer-divider"></div>
-            <div class="footer-social">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            </div>
-            <p>&copy; 2025 IPI Computación. Todos los derechos reservados. | "Tu respaldo tecnológico."</p>
+  <!-- ========== PORTAFOLIO ========== -->
+  <section id="portafolio" class="py-20 bg-ipi-black relative">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-ipi-lime/10 rounded-full blur-3xl"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <h2 class="text-3xl md:text-4xl font-comfortaa font-bold text-center mb-4">
+        <span class="text-ipi-cyan glow-cyan">Nuestro</span> <span class="text-ipi-lime glow-lime">Trabajo</span>
+      </h2>
+      <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto">
+        Transparencia y profesionalismo en cada reparación. Así trabajamos en IPI Computación.
+      </p>
+      
+      <div class="max-w-4xl mx-auto bg-ipi-card rounded-2xl overflow-hidden shadow-2xl shadow-ipi-cyan/20 fade-in border border-ipi-cyan/30">
+        <!-- Reemplaza esta imagen por la foto real de la impresora Canon G1110 -->
+        <img src="https://i.postimg.cc/cLYb1s4p/impresoras.jpg" 
+             alt="Mantenimiento a Impresora Canon G1110" class="w-full h-auto object-cover">
+        <div class="p-6">
+          <h3 class="text-2xl font-bold mb-2 text-ipi-cyan">Mantenimiento a Impresora Canon G1110</h3>
+          <p class="text-gray-400">
+            Desarmado completo, limpieza de cabezales, revisión del sistema de tinta y pruebas de funcionamiento. 
+            Entregado con garantía IPI.
+          </p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        document.getElementById('formularioServicio').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const nombre = document.getElementById('nombre').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const servicio = document.getElementById('servicio').value;
-            
-            if (!nombre || !email || !servicio) {
-                alert('Por favor, completa los campos obligatorios: nombre, correo y servicio.');
-                return;
-            }
-            
-            alert(`¡Gracias, ${nombre}! Hemos recibido tu solicitud para "${servicio}". En IPI Computación nos pondremos en contacto a la brevedad.\n\n"Tu respaldo tecnológico."`);
-            
-            this.reset();
-        });
+  <!-- ========== NOSOTROS ========== -->
+  <section id="nosotros" class="py-20 bg-ipi-dark">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-comfortaa font-bold text-center mb-12">
+        <span class="text-ipi-cyan glow-cyan">¿Quiénes</span> <span class="text-ipi-lime glow-lime">Somos?</span>
+      </h2>
+      
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <div class="fade-in bg-ipi-card p-8 rounded-2xl shadow-lg border border-ipi-lime/30">
+          <i class="fas fa-bullseye text-4xl text-ipi-lime mb-4"></i>
+          <h3 class="text-2xl font-bold mb-3 text-white">Misión</h3>
+          <p class="text-gray-400">
+            "Proveer soluciones tecnológicas y de computación a la vanguardia, garantizando excelencia en el servicio 
+            para potenciar el desarrollo y rendimiento de nuestros clientes en su entorno profesional."
+          </p>
+        </div>
+        <div class="fade-in bg-ipi-card p-8 rounded-2xl shadow-lg border border-ipi-cyan/30">
+          <i class="fas fa-eye text-4xl text-ipi-cyan mb-4"></i>
+          <h3 class="text-2xl font-bold mb-3 text-white">Visión</h3>
+          <p class="text-gray-400">
+            "Ser el referente líder en el mercado de informática y tecnología, reconocidos por anticipar las necesidades 
+            del cliente y brindar soluciones integrales que impulsen la transformación digital."
+          </p>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mt-10">
+        <div class="fade-in text-center p-4 bg-ipi-card rounded-xl shadow border border-ipi-orange/30">
+          <i class="fas fa-rocket text-3xl text-ipi-orange mb-2"></i>
+          <h4 class="font-bold text-white">Vanguardia</h4>
+        </div>
+        <div class="fade-in text-center p-4 bg-ipi-card rounded-xl shadow border border-ipi-lime/30">
+          <i class="fas fa-bolt text-3xl text-ipi-lime mb-2"></i>
+          <h4 class="font-bold text-white">Rapidez</h4>
+        </div>
+        <div class="fade-in text-center p-4 bg-ipi-card rounded-xl shadow border border-ipi-cyan/30">
+          <i class="fas fa-check-circle text-3xl text-ipi-cyan mb-2"></i>
+          <h4 class="font-bold text-white">Calidad</h4>
+        </div>
+        <div class="fade-in text-center p-4 bg-ipi-card rounded-xl shadow border border-ipi-orange/30">
+          <i class="fas fa-hand-holding-usd text-3xl text-ipi-orange mb-2"></i>
+          <h4 class="font-bold text-white">Accesibilidad</h4>
+        </div>
+      </div>
+      
+      <p class="text-center mt-8 text-gray-500 italic max-w-2xl mx-auto">
+        En nuestro taller, el aroma a Menta y Té Verde mantiene la concentración y elimina el estrés.
+      </p>
+    </div>
+  </section>
 
-        // Scroll suave para los enlaces del menú
-        document.querySelectorAll('a[href^="#"]').forEach(ancla => {
-            ancla.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href !== '#') {
-                    e.preventDefault();
-                    const destino = document.querySelector(href);
-                    if (destino) {
-                        destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                }
-            });
-        });
-    </script>
+  <!-- ========== MASCOTA IPI BOOT ========== -->
+  <section id="mascota" class="py-20 bg-ipi-black relative">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-ipi-lime/10 rounded-full blur-3xl"></div>
+    <div class="container mx-auto px-4 relative z-10">
+      <div class="flex flex-col md:flex-row items-center gap-10 max-w-5xl mx-auto">
+        <div class="md:w-1/2 flex justify-center fade-in">
+          <!-- Reemplaza con la imagen 3D de IPI Boot -->
+          <img src="https://i.postimg.cc/Vvp0VWjt/Ipi-Mascota-removebg-preview.png" alt="IPI Boot" 
+               class="w-64 md:w-80 drop-shadow-[0_0_30px_rgba(112,255,0,0.5)] animate-float rounded-2xl">
+        </div>
+        <div class="md:w-1/2 space-y-4 fade-in">
+          <h2 class="text-3xl md:text-4xl font-comfortaa font-bold">
+            <span class="text-ipi-cyan glow-cyan">Conoce a</span> <span class="text-ipi-lime glow-lime">IPI Boot</span>
+          </h2>
+          <p class="text-gray-400">
+            Un monitor inteligente "Geek" de soporte avanzado. Representa un asistente experto que resuelve problemas 
+            complejos de forma rápida. Será la figura central en los adhesivos de "Garantía de Servicio".
+          </p>
+          <button id="tip-btn" class="bg-ipi-cyan text-white font-bold px-6 py-3 rounded-full hover:bg-ipi-lime hover:text-gray-900 transition shadow-lg shadow-ipi-cyan/40">
+            <i class="fas fa-lightbulb mr-2"></i>Consejo de IPI Boot
+          </button>
+          <p id="tip-text" class="text-ipi-orange font-semibold italic min-h-[3rem] glow-orange"></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ========== CONTACTO ========== -->
+  <section id="contacto" class="py-20 bg-ipi-dark">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-comfortaa font-bold text-center mb-4">
+        <span class="text-ipi-cyan glow-cyan">Contáctanos</span>
+      </h2>
+      <p class="text-center text-gray-400 mb-12">Estamos listos para ayudarte con tu equipo.</p>
+      
+      <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <!-- Información y formulario -->
+        <div class="space-y-6 fade-in">
+          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-lime/30">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-white"><i class="fas fa-map-marker-alt text-ipi-lime"></i> Dirección</h3>
+            <p class="text-gray-400">2da. Avenida 7-36 Zona 6, colonia Domínguez, Quetzaltenango, Guatemala.</p>
+          </div>
+          
+          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-cyan/30">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-white"><i class="fas fa-phone-alt text-ipi-cyan"></i> Teléfono / WhatsApp</h3>
+            <p class="text-gray-400">+502 4226 0602</p>
+            <p class="text-gray-400">ipicomputacion@hotmail.com</p>
+          </div>
+          
+          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-orange/30">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-white"><i class="fas fa-share-alt text-ipi-orange"></i> Redes Sociales</h3>
+            <div class="flex gap-4 text-2xl">
+              <div class="flex gap-4 text-2xl">
+  		<a href="https://www.facebook.com/IPIcomputacion/" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-facebook"></i></a>
+  		<a href="https://www.instagram.com/ipi_computation" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-instagram"></i></a>
+ 		<a href="https://www.tiktok.com/@ipi.computacion?_r=1&_t=ZS-9AJtyKlHWwX" target="_blank" rel="noopener noreferrer" class="text-ipi-cyan hover:text-ipi-lime transition"><i 			class="fab fa-tiktok"></i></a>
+  		<a href="https://wa.me/50242260602" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-whatsapp"></i></a>
+	</div>
+            </div>
+          </div>
+          
+          <!-- Audio Logo -->
+          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-lime/30">
+            <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-white"><i class="fas fa-volume-up text-ipi-lime"></i> Audio Logo</h3>
+            <!-- Reemplaza 'assets/audio-logo.mp3' por tu archivo real -->
+            <audio controls class="w-full">
+              <source src="assets/audio-logo.mp3" type="audio/mpeg">
+              Tu navegador no soporta el elemento de audio.
+            </audio>
+          </div>
+        </div>
+        
+        <!-- Formulario y Mapa -->
+        <div class="space-y-6 fade-in">
+          <!-- Formulario (Formspree) -->
+          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-cyan/30">
+            <h3 class="text-xl font-bold mb-4 text-white">Envíanos un mensaje</h3>
+            <!-- Reemplaza TU_ID_FORMSPREE por tu ID real de Formspree -->
+            <form action="https://formspree.io/f/TU_ID_FORMSPREE" method="POST" class="space-y-4">
+              <input type="text" name="nombre" placeholder="Nombre completo" required class="w-full p-3 rounded-lg bg-ipi-dark border border-ipi-cyan/30 focus:outline-none focus:ring-2 focus:ring-ipi-cyan focus:border-transparent">
+              <input type="email" name="email" placeholder="Correo electrónico" required class="w-full p-3 rounded-lg bg-ipi-dark border border-ipi-cyan/30 focus:outline-none focus:ring-2 focus:ring-ipi-cyan focus:border-transparent">
+              <input type="tel" name="telefono" placeholder="Teléfono" class="w-full p-3 rounded-lg bg-ipi-dark border border-ipi-cyan/30 focus:outline-none focus:ring-2 focus:ring-ipi-cyan focus:border-transparent">
+              <select name="servicio" class="w-full p-3 rounded-lg bg-ipi-dark border border-ipi-cyan/30 focus:outline-none focus:ring-2 focus:ring-ipi-cyan focus:border-transparent">
+                <option value="">Selecciona un servicio</option>
+                <option value="Mantenimiento Preventivo">Mantenimiento Preventivo - Q225</option>
+                <option value="Instalación Software">Instalación Software - Q175</option>
+                <option value="Antivirus">Antivirus - Q180</option>
+                <option value="Laptop Gaming">Laptop Gaming - Q350</option>
+                <option value="Proyectores">Proyectores - Q350</option>
+                <option value="Impresoras">Impresoras - Q225</option>
+              </select>
+              <textarea name="mensaje" rows="4" placeholder="Cuéntanos más sobre tu equipo..." required class="w-full p-3 rounded-lg bg-ipi-dark border border-ipi-cyan/30 focus:outline-none focus:ring-2 focus:ring-ipi-cyan focus:border-transparent"></textarea>
+              <button type="submit" class="w-full bg-ipi-lime text-gray-900 font-bold py-3 rounded-lg hover:bg-ipi-cyan hover:text-white transition shadow-lg shadow-ipi-lime/30">
+                Enviar Mensaje
+              </button>
+            </form>
+          </div>
+          
+          <!-- Mapa -->
+          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-lime/30 overflow-hidden">
+            <h3 class="text-xl font-bold mb-4 text-white">Ubicación</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.949748783!2d-91.5227!3d14.8345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDUwJzA0LjIiTiA5McKwMzEnMjEuNyJX!5e0!3m2!1ses!2sgt!4v1600000000000!5m2!1ses!2sgt" 
+                    width="100%" height="250" style="border:0; filter: invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy" class="rounded-lg"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-black border-t border-ipi-cyan/20 py-10">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="text-center md:text-left">
+          <h3 class="font-comfortaa font-bold text-2xl mb-2">
+            <span class="text-ipi-cyan glow-cyan">IPI</span> <span class="text-ipi-lime glow-lime">Computación</span>
+          </h3>
+          <p class="text-gray-500">Soluciones tecnológicas a tu alcance</p>
+        </div>
+        <div class="flex gap-6 text-2xl">
+  <a href="https://www.facebook.com/IPIcomputacion/" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-facebook"></i></a>
+  <a href="https://www.instagram.com/ipi_computation" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-instagram"></i></a>
+  <a href="https://www.tiktok.com/@ipi.computacion?_r=1&_t=ZS-9AJtyKlHWwX" target="_blank" rel="noopener noreferrer" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-tiktok"></i></a>
+  <a href="https://wa.me/50242260602" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-whatsapp"></i></a>
+</div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-500 text-sm">
+        &copy; 2025 IPI Computación. Todos los derechos reservados. | Quetzaltenango, Guatemala.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // Menú móvil
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    
+    // Cerrar menú al hacer clic en un enlace
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+      });
+    });
+    
+    // Animación Fade-in con Intersection Observer
+    const fadeElements = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(el => observer.observe(el));
+    
+    // Consejo aleatorio de IPI Boot
+    const tips = [
+      "¿Sabías que limpiar el polvo de tu PC alarga su vida útil hasta un 30%?",
+      "Una laptop gaming necesita cambio de pasta térmica cada 6 meses.",
+      "Instalar un antivirus original evita el 90% de las infecciones.",
+      "El mantenimiento preventivo de impresoras evita derrames de tinta.",
+      "¿PC lenta? Una actualización a SSD puede multiplicar su velocidad por 5.",
+      "Los proyectores acumulan polvo en los filtros; límpialos cada 3 meses."
+    ];
+    
+    const tipBtn = document.getElementById('tip-btn');
+    const tipText = document.getElementById('tip-text');
+    
+    tipBtn.addEventListener('click', () => {
+      const randomTip = tips[Math.floor(Math.random() * tips.length)];
+      tipText.textContent = randomTip;
+    });
+    
+    // Smooth scroll para enlaces internos
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
