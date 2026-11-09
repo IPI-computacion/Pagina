@@ -309,7 +309,7 @@
 <div class="flex justify-center py-6">
   <div class="relative w-full" style="max-width: 320px; padding-bottom: 568px; height: 0;">
     <iframe 
-      src="https://www.tiktok.com/player/v1/7645000498705222919?autoplay=0&loop=0"
+      src="https://www.tiktok.com/player/v1/7645000498705222919?autoplay=0&loop=0&muted=1"
       title="Mantenimiento a Impresora Canon G1110"
       frameborder="0"
       allow="encrypted-media; fullscreen; picture-in-picture"
@@ -510,12 +510,31 @@
             </button>
           </div>
           
-          <!-- Mapa -->
-          <div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-lime/30 overflow-hidden">
-            <h3 class="text-xl font-bold mb-4 text-white">Ubicación</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.949748783!2d-91.5227!3d14.8345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDUwJzA0LjIiTiA5McKwMzEnMjEuNyJX!5e0!3m2!1ses!2sgt!4v1600000000000!5m2!1ses!2sgt" 
-                    width="100%" height="250" style="border:0; filter: invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy" class="rounded-lg"></iframe>
-          </div>
+<!-- Mapa con enlace a Google Maps -->
+<div class="bg-ipi-card p-6 rounded-2xl shadow-lg border border-ipi-lime/30 overflow-hidden">
+  <h3 class="text-xl font-bold mb-4 text-white">Ubicación</h3>
+  
+  <a href="https://www.google.com/maps/search/?api=1&query=IPI Computación"
+     target="_blank"
+     rel="noopener noreferrer"
+     class="block relative group cursor-pointer">
+    
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3856.949748783!2d-91.5227!3d14.8345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDUwJzA0LjIiTiA5McKwMzEnMjEuNyJX!5e0!3m2!1ses!2sgt!4v1600000000000!5m2!1ses!2sgt" 
+            width="100%" height="250" 
+            style="border:0; filter: invert(90%) hue-rotate(180deg); pointer-events: none;" 
+            allowfullscreen="" loading="lazy" 
+            class="rounded-lg">
+    </iframe>
+    
+    <!-- Capa hover con mensaje -->
+    <div class="absolute inset-0 flex items-center justify-center bg-ipi-cyan/0 group-hover:bg-ipi-cyan/30 transition-all duration-300 rounded-lg">
+      <span class="bg-ipi-lime text-gray-900 font-bold px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
+        <i class="fas fa-external-link-alt mr-2"></i> Abrir en Google Maps
+      </span>
+    </div>
+  </a>
+</div>         
+
         </div>
       </div>
     </div>
@@ -533,7 +552,7 @@
         </div>
         <div class="flex gap-6 text-2xl">
           <a href="https://www.facebook.com/IPIcomputacion/" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-facebook"></i></a>
-          <a href="https://www.instagram.com/ipi_computation" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.instagram.com/ipi_computacion" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-instagram"></i></a>
           <a href="https://www.tiktok.com/@ipi.computacion?_r=1&_t=ZS-9AJtyKlHWwX" target="_blank" rel="noopener noreferrer" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-tiktok"></i></a>
           <a href="https://wa.me/50242260602" target="_blank" class="text-ipi-cyan hover:text-ipi-lime transition"><i class="fab fa-whatsapp"></i></a>
         </div>
